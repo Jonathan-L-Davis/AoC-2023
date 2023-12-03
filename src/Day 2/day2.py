@@ -12,29 +12,30 @@ colors = ["red","green","blue"]
 
 with open("input.txt") as file:
     for line in file:
+        red = 0
+        green = 0
+        blue = 0
         line = line.strip("Game ")
         line_num, line = line.split(":")
         line = line.strip()
         game = line.split(";")
         possible = True
         for rounds in game:
-            red = 0
-            green = 0
-            blue = 0
             cubes = rounds.strip().split(", ")
             print (cubes)
             for cube in cubes:
                 if ( cube.find("red" )!= -1 ):
-                    red = cube.split(" ")[0]
+                    red = max(int(cube.split(" ")[0]),red)
                 if ( cube.find("green" )!= -1 ):
-                    green = cube.split(" ")[0]
+                    green = max(int(cube.split(" ")[0]),green)
+                    print(green)
                 if ( cube.find("blue" )!= -1 ):
-                    blue = cube.split(" ")[0]
-                    print(red)
-            if( int(red) > max_red or int(green) > max_green or int(blue) > max_blue ):
-                possible = False
+                    blue = max(int(cube.split(" ")[0]),blue)
+        print( str(red) + " " + str(green) + " " + str(blue) )
+            #if( int(red) > max_red or int(green) > max_green or int(blue) > max_blue ):
+            #    possible = False
         
-        if possible:
-            total += int(line_num)
+        #if possible:
+        total += int(red*green*blue)
         
 print(total)
